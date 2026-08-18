@@ -1,0 +1,4 @@
+index=main sourcetype="DNS logs"
+| stats count by query, src_ip, dst_ip
+| sort - count
+| head 100
