@@ -1,0 +1,67 @@
+---
+
+# 4. `SPL/queries.spl`
+
+**Yahan apni actual queries paste karna.** Agar tumne dashboard banate waqt jo SPL use ki thi woh available hai, wahi use karo.
+
+```spl
+# =========================================
+# Project 02 - SSH Log Analysis
+# Splunk SPL Queries
+# =========================================
+
+
+# Total SSH Events
+index=<your_index>
+| stats count
+
+
+# Successful SSH Login
+index=<your_index>
+| search <successful_login_condition>
+| stats count
+
+
+# Failed SSH Login
+index=<your_index>
+| search <failed_login_condition>
+| stats count
+
+
+# Failed Login by Username
+index=<your_index>
+| search <failed_login_condition>
+| stats count by username
+| sort - count
+
+
+# Failed Login by Source IP
+index=<your_index>
+| search <failed_login_condition>
+| stats count by src_ip
+| sort - count
+
+
+# Possible Brute Force Sources
+index=<your_index>
+| search <failed_login_condition>
+| stats count by src_ip
+| where count >= 5
+| sort - count
+
+
+# Source IP + Username Correlation
+index=<your_index>
+| search <failed_login_condition>
+| stats count by src_ip username
+| sort - count
+
+
+# Authentication Activity Over Time
+index=<your_index>
+| timechart count
+
+
+# Authentication Events by Status
+index=<your_index>
+| stats count by authentication_status
